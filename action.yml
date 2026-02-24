@@ -1,0 +1,55 @@
+name: 'Semantic Version'
+description: 'Automatically bump semantic version based on Conventional Commits'
+author: 'netwarlan'
+
+inputs:
+  token:
+    description: 'GitHub token for pushing tags and creating releases'
+    required: true
+    default: ${{ github.token }}
+  default-version:
+    description: 'Starting version when no existing tags found'
+    required: false
+    default: 'v0.1.0'
+  tag-prefix:
+    description: 'Tag prefix (e.g. "v")'
+    required: false
+    default: 'v'
+  create-release:
+    description: 'Create a GitHub release with changelog'
+    required: false
+    default: 'false'
+  release-draft:
+    description: 'Create the release as a draft'
+    required: false
+    default: 'false'
+  release-prerelease:
+    description: 'Mark the release as a prerelease'
+    required: false
+    default: 'false'
+  bump-patch-on-unknown:
+    description: 'Bump patch for non-conventional commits (docs, chore, etc.)'
+    required: false
+    default: 'false'
+  dry-run:
+    description: 'Calculate version without creating tag or release'
+    required: false
+    default: 'false'
+
+outputs:
+  previous-version:
+    description: 'The previous semver tag found'
+  new-version:
+    description: 'The new calculated version'
+  bump-type:
+    description: 'The bump type applied (major, minor, patch, none)'
+  changelog:
+    description: 'Generated changelog markdown'
+  skipped:
+    description: 'Whether version bump was skipped (true/false)'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  env:
+    GITHUB_TOKEN: ${{ inputs.token }}

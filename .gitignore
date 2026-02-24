@@ -1,0 +1,11 @@
+bin/
+coverage.out
+*.exe
+*.dll
+*.so
+*.dylib
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
