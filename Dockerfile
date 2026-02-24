@@ -13,7 +13,8 @@ RUN CGO_ENABLED=0 GOOS=linux go build \
 
 FROM alpine:latest
 
-RUN apk add --no-cache git
+RUN apk add --no-cache git && \
+    git config --global --add safe.directory /github/workspace
 
 COPY --from=builder /action-semantic-versioning /action-semantic-versioning
 
